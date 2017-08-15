@@ -1,0 +1,75 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <link rel="stylesheet" href="css/solr.css">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Eclipse Search</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="/css/images/favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <div class="header">
+            <div class="icon-container">
+                <div class="icon"><img src="/css/images/eclipse_image.png" alt="Eclipse Icon"></div>
+                <div class="icon-text"><img src="/css/images/logo_text.png" alt="Eclipse Search"></div>
+            </div>
+            <div class="search-bar-container">
+                <div class="search-bar">
+                    <input type="text" id='search_text' placeholder="Search...">
+                <select id='fields'>
+                    <option value="Question">Questions</option>
+                    <option value="Response">Responses</option>
+                    <option value="both" selected>Questions and Responses</option>
+                    <option value="comments">Comments</option>
+                </select>
+                <select id='companies'>
+                    <option value="">All Companies</option>
+                    {% for company in data['companies'] %}
+                        <option value="{{company}}">{{company}}</option>
+                    {% endfor %}
+                </select>
+                <button class="submit_search">Search !</button>
+                    </div>
+                <h4 class="total-results">Number of Matches: <span id="num_results">0</span></h4>
+            </div>
+            <div class="reindex-container">
+                <button class="reindex" onclick='showReindexModal()'>Reindex Data</button>
+            </div>
+        </div>
+
+        <div class="modal" id="modal-delete">
+          <div class="modal-content">
+            <p>Are you sure you want to delete?</p>
+            <button id="delete-cancel" onclick="hideModal()">Cancel</button>
+            <button id="delete-commit" onclick="deleteResult()">Delete</button>
+          </div>
+        </div>
+
+        <div class="modal" id="modal-comment">
+          <div class="modal-content">
+            <p>What comment would you like to add?</p>
+            <input type="text" id='comment-text' placeholder="Comment">
+            <button id="comment-cancel" onclick="hideModal()">Cancel</button>
+            <button id="comment-commit" onclick="commentResult(false)">Comment</button>
+            <button class="comment-delete" onclick="commentResult(true)" style="background-color:red">Remove Comment</button>
+          </div>
+        </div>
+
+        <div class="modal" id="modal-reindex">
+          <div class="modal-content">
+            <h4>Are you sure you want to reindex?</h4>
+            <p>This will delete all responses and rebuild the from the stored csv file</p>
+            <button id="reindex-cancel" onclick="hideModal()">Cancel</button>
+            <button id="reindex-commit" onclick="reindex()">Reindex</button>
+          </div>
+        </div>
+
+        <div class="results" id='query-results'></div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+        <script src="js/solr_search.js"></script>
+    </body>
+</html>

@@ -1,0 +1,9 @@
+Flask==0.12.2
+Flask-Login==0.4.0
+Jinja2==2.9.6
+MarkupSafe==1.0
+Werkzeug==0.12.2
+itsdangerous==0.24
+requests==2.17.3
+python-pidfile==1.0.1
+python-dateutil==2.6.0
